@@ -35,23 +35,18 @@ This workflow does not use machine learning and is entirely rule-based.
 
 ## Project Structure
 
-ai-engine-intern/
-│
-├── app/
-│   ├── engine/
-│   │   ├── graph.py        # Graph and Node classes
-│   │   ├── runner.py       # Asynchronous workflow runner
-│   │   └── registry.py     # Optional registry for node functions
-│   │
-│   ├── workflows/
-│   │   └── code_review.py  # Code review workflow implementation
-│   │
-│   ├── models/
-│   │   └── schemas.py      # Pydantic request/response models
-│   │
-│   ├── db.py               # In-memory GraphStore and RunStore
-│   └── main.py             # FastAPI routes and application
-│
-├── requirements.txt
-├── .gitignore
-└── README.md
+- **ai-engine-intern/**
+  - **app/**
+    - **engine/**
+      - `graph.py` — Graph and Node classes
+      - `runner.py` — Async workflow runner
+      - `registry.py` — Optional registry for node functions
+    - **workflows/**
+      - `code_review.py` — Code review workflow implementation
+    - **models/**
+      - `schemas.py` — Pydantic request/response models
+    - `db.py` — In-memory GraphStore and RunStore
+    - `main.py` — FastAPI routes and application
+- `requirements.txt`
+- `.gitignore`
+- `README.md`
