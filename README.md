@@ -1,30 +1,57 @@
-﻿# Mini Workflow Engine — Code Review Agent
+# Mini Workflow Engine — AI Engineering Internship Assignment
 
-## Overview
-Small workflow/graph engine implemented with FastAPI. Supports:
-- Nodes: async Python functions operating on shared state
-- Edges + branching (via state["next"]) + simple looping
-- In-memory graph & run storage
-- Example workflow: Code Review Mini-Agent (rule-based)
+This repository contains a minimal workflow/graph engine implemented using Python and FastAPI, created as part of the AI Engineering Internship assignment.
 
-## Run locally
-1. Create and activate venv:
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
+The project demonstrates:
 
-2. Install:
-   pip install -r requirements.txt
+- Clean and modular API design
+- Asynchronous workflow execution
+- Graph-based execution model (nodes, edges, state transitions)
+- Branching and looping via `state["next"]`
+- A complete example workflow: Code Review Mini-Agent
 
-3. Start server:
-   uvicorn app.main:app --reload --port 8000
 
-4. Open docs:
-   http://127.0.0.1:8000/docs
+## Features
 
-## API
-- POST /graph/create  -> {"preset":"code_review"} -> returns graph_id
-- POST /graph/run     -> {"graph_id":"<id>", "initial_state": {...}} -> returns run_id
-- GET /graph/state/{run_id}
+### Workflow Engine
+- Nodes: Python functions that operate on shared state
+- Edges: Define execution flow between nodes
+- State: Dictionary passed and updated throughout execution
+- Branching: Nodes may override the next step using `state["next"]`
+- Looping: Nodes can trigger re-execution until a condition is satisfied
+- Asynchronous Execution: Workflows run using `asyncio.create_task`
 
-## What to improve
-- Persist runs to DB, WebSocket logs, unit tests
+### Code Review Workflow (Rule-Based)
+A simple rule-based agent that performs the following steps:
+
+1. Extract functions from code  
+2. Compute basic complexity  
+3. Detect issues such as debug prints or TODO comments  
+4. Suggest improvements  
+5. Loop until `quality_score >= threshold`
+
+This workflow does not use machine learning and is entirely rule-based.
+
+
+## Project Structure
+
+ai-engine-intern/
+│
+├── app/
+│   ├── engine/
+│   │   ├── graph.py        # Graph and Node classes
+│   │   ├── runner.py       # Asynchronous workflow runner
+│   │   └── registry.py     # Optional registry for node functions
+│   │
+│   ├── workflows/
+│   │   └── code_review.py  # Code review workflow implementation
+│   │
+│   ├── models/
+│   │   └── schemas.py      # Pydantic request/response models
+│   │
+│   ├── db.py               # In-memory GraphStore and RunStore
+│   └── main.py             # FastAPI routes and application
+│
+├── requirements.txt
+├── .gitignore
+└── README.md
